@@ -36,6 +36,6 @@ app.post('/api/score', function(req, res){
     });
 });
 
-app.listen(3000, function() { 
+app.listen(process.env.PORT, function() { 
     console.log('Server now listening on port 3000');
 });
