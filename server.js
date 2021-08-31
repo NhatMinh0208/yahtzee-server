@@ -26,11 +26,26 @@ app.get('/', function(req, res){
 });
 
 app.get('/api/score', function(req, res){ 
-    // TO BE IMPLEMENTED
+    actions.getScore(req.query, function(err, data){
+        if (err === null) res.json({
+            status: 'SUCCESS',
+            scores: data
+        });
+        else res.json({status: err});
+    })
 });
+
+
 
 app.post('/api/score', function(req, res){
     actions.submitScore(req.body, function(err, data){
+        if (err === null) res.json({status: 'SUCCESS'});
+        else res.json({status: err});
+    });
+});
+
+app.post('/api/clearscore', function(req, res){
+    actions.clearScore(req.body, function(err, data){
         if (err === null) res.json({status: 'SUCCESS'});
         else res.json({status: err});
     });

@@ -10,12 +10,15 @@ function submitScore(data, callback) {
     }
     if (data.score === undefined) {
         callback('ERROR: Score not found');
+        return;
     }
     if (data.name === undefined) {
         callback('ERROR: Name not found');
+        return;
     }
     if (data.apiKey !== process.env.API_SECRET) { 
         callback('ERROR: API Key not found or does not match API_SECRET');
+        return;
     }
     const newScore = new models.Score({
         name: data.name, 
@@ -28,10 +31,43 @@ function submitScore(data, callback) {
 
     newScore.save().then(() => {
         clearTimeout(timeOut);
-        callback(null, {
-            status: 'SUCCESS',
-        })
+        callback(null);
+    });
+}
+
+
+function getScore(data, callback) {
+    if (data.apiKey !== process.env.API_SECRET) { 
+        callback('ERROR: API Key not found or does not match API_SECRET');
+        return;
+    }
+    const timeOut = setTimeout(function () {
+        callback('ERROR: Request timed out');
+    }, 10000);
+
+    models.Score.find({
+    }).then((res) => {
+        clearTimeout(timeOut);
+        callback(null, res);
+    });
+}
+
+function clearScore(data, callback) {
+    if (data.apiKey !== process.env.API_SECRET) { 
+        callback('ERROR: API Key not found or does not match API_SECRET');
+        return;
+    }
+    const timeOut = setTimeout(function () {
+        callback('ERROR: Request timed out');
+    }, 10000);
+
+    models.Score.deleteMany({
+    }).then(() => {
+        clearTimeout(timeOut);
+        callback(null);
     });
 }
 
 exports.submitScore = submitScore;
+exports.getScore = getScore;
+exports.clearScore = clearScore;
