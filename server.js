@@ -4,7 +4,7 @@ const cors = require("cors");
 const actions = require("./actions");
 
 var corsOptions = {
-    
+    origin: ["http://localhost:3001","https://normie-yahtzee.herokuapp.com/"],
 };
 
 const app = express();

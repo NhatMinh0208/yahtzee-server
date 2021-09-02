@@ -16,10 +16,6 @@ function submitScore(data, callback) {
         callback('ERROR: Name not found');
         return;
     }
-    if (data.apiKey !== process.env.API_SECRET) { 
-        callback('ERROR: API Key not found or does not match API_SECRET');
-        return;
-    }
     const newScore = new models.Score({
         name: data.name, 
         time: data.time,
@@ -37,10 +33,6 @@ function submitScore(data, callback) {
 
 
 function getScore(data, callback) {
-    if (data.apiKey !== process.env.API_SECRET) { 
-        callback('ERROR: API Key not found or does not match API_SECRET');
-        return;
-    }
     const timeOut = setTimeout(function () {
         callback('ERROR: Request timed out');
     }, 10000);
@@ -53,10 +45,6 @@ function getScore(data, callback) {
 }
 
 function clearScore(data, callback) {
-    if (data.apiKey !== process.env.API_SECRET) { 
-        callback('ERROR: API Key not found or does not match API_SECRET');
-        return;
-    }
     const timeOut = setTimeout(function () {
         callback('ERROR: Request timed out');
     }, 10000);
