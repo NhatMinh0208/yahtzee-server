@@ -3,10 +3,16 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const actions = require("./actions");
 
+var whitelist = ['https://normie-yahtzee.herokuapp.com']
 var corsOptions = {
-    origin: ["http://localhost:3001","https://normie-yahtzee.herokuapp.com/"],
-};
-
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 const app = express();
 
 app.use(function(req, res, next){
